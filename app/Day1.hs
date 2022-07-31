@@ -5,14 +5,12 @@ import Text.Read (readMaybe)
 
 run :: IO ()
 run = do
-  ints <- readInput
+  ints <- parse
   print $ solutionA ints
   print $ solutionB ints
 
-readInput :: IO [Int]
-readInput = do
-  text <- readFile "data/day01.txt"
-  return $ mapMaybe readMaybe (lines text)
+parse :: IO [Int]
+parse = readFile "data/day01.txt" >>= traverse readIO . lines
 
 solutionA :: [Int] -> Int
 solutionA = length . filter (> 0) . diff

@@ -3,14 +3,14 @@ module Day2 where
 run :: IO ()
 run = do
   text <- readFile "data/day02.txt"
-  let ins = parseIns text
+  let ins = parse text
   print $ solutionA ins
   print $ solutionB ins
 
 data Instruction = Forward Int | Up Int | Down Int deriving (Show)
 
-parseIns :: String -> [Instruction]
-parseIns text = map g (f $ words text)
+parse :: String -> [Instruction]
+parse text = map g (f $ words text)
   where
     f :: [String] -> [([Char], Int)]
     f (op : distance : xs) = (op, read distance) : f xs

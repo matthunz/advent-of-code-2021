@@ -13,7 +13,7 @@ main = do
   args <- getArgs
   traverse_ run (parse args)
 
-parse :: (Num a, Enum a, Read a) => [String] -> [a]
+parse :: [String] -> [Int]
 parse [] = [1 .. 2]
 parse days = map read days
 
