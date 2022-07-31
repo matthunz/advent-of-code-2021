@@ -4,8 +4,23 @@ import Control.Monad.IO.Class
 import Data.Maybe (mapMaybe)
 import Text.Read
 
+data Instruction = Instruction String Int deriving (Show)
+
 main :: IO ()
 main = do
+  text <- readFile "data/day02.txt"
+  print $ h $ foldl g (0, 0) (f $ words text)
+  where
+    f :: [String] -> [Instruction]
+    f (op : distance : xs) = Instruction op (read distance) : f xs
+    f _ = []
+    g (x, y) (Instruction "forward" d) = (x + d, y)
+    g (x, y) (Instruction "up" d) = (x, y - d)
+    g (x, y) (Instruction "down" d) = (x, y + d)
+    g (x, y) _ = (x, y)
+    h (x, y) = x * y
+
+main2 = do
   ints <- readInput
   print $ solutionA ints
   print $ solutionB ints
